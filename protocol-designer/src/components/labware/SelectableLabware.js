@@ -8,13 +8,13 @@ import {
   LabwareOutline,
   Well,
   ingredIdsToColor,
+  SELECTABLE_WELL_CLASS,
 } from '@opentrons/components'
 
 import {getWellDefsForSVG} from '@opentrons/shared-data'
 
 import {getCollidingWells} from '../../utils'
 import {
-  SELECTABLE_WELL_CLASS,
   WELL_LABEL_OFFSET,
 } from '../../constants'
 import {getWellSetForMultichannel} from '../../well-selection/utils'

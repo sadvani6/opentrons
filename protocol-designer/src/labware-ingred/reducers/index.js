@@ -10,14 +10,14 @@ import max from 'lodash/max'
 import pickBy from 'lodash/pickBy'
 import reduce from 'lodash/reduce'
 
-import {sortedSlotnames, FIXED_TRASH_ID} from '../../constants.js'
+import * as actions from '../actions'
 import {labwareToDisplayName} from '../utils'
-
-import type {DeckSlot} from '@opentrons/components'
+import {FIXED_TRASH_ID} from '../../constants.js'
+import {getPDMetadata} from '../../file-types'
+import {sortedSlotnames, type DeckSlot} from '@opentrons/components'
 import {getIsTiprack} from '@opentrons/shared-data'
 
 import type {SingleLabwareLiquidState, LabwareLiquidState} from '../../step-generation'
-
 import type {
   IngredInputs,
   LiquidGroupsById,
@@ -27,8 +27,6 @@ import type {
   Labware,
   LabwareTypeById,
 } from '../types'
-import * as actions from '../actions'
-import {getPDMetadata} from '../../file-types'
 import type {BaseState, Options} from '../../types'
 import type {LoadFileAction} from '../../load-file'
 import type {
@@ -40,9 +38,6 @@ import type {
   SelectLiquidAction,
   SetWellContentsAction,
 } from '../actions'
-
-// external actions (for types)
-import typeof {openWellSelectionModal} from '../../well-selection/actions'
 
 // UTILS
 const nextEmptySlot = loadedContainersSubstate => {
@@ -67,11 +62,6 @@ type SelectedContainerId = string | null
 const selectedContainerId = handleActions({
   OPEN_INGREDIENT_SELECTOR: (state, action: ActionType<typeof actions.openIngredientSelector>): SelectedContainerId => action.payload,
   CLOSE_INGREDIENT_SELECTOR: (state, action: ActionType<typeof actions.closeIngredientSelector>): SelectedContainerId => null,
-
-  // $FlowFixMe: Cannot get `action.payload` because property `payload` is missing in function
-  OPEN_WELL_SELECTION_MODAL: (state, action: ActionType<openWellSelectionModal>): SelectedContainerId =>
-    action.payload.labwareId,
-  CLOSE_WELL_SELECTION_MODAL: (): SelectedContainerId => null,
 }, null)
 
 type DrillDownLabwareId = string | null

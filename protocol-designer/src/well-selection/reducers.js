@@ -4,7 +4,6 @@ import {combineReducers} from 'redux'
 import {handleActions} from 'redux-actions'
 
 import type {Wells} from '../labware-ingred/types'
-import type {OpenWellSelectionModalPayload} from './actions'
 
 type WellSelectionAction = {
   payload: Wells, // NOTE: primary wells.
@@ -45,21 +44,12 @@ const selectedWells = handleActions({
   SET_WELL_CONTENTS: () => selectedWellsInitialState,
 }, selectedWellsInitialState)
 
-// TODO: BC 2018-11-01 unused, remove and all references to the actions
-type WellSelectionModalState = OpenWellSelectionModalPayload | null
-const wellSelectionModal = handleActions({
-  OPEN_WELL_SELECTION_MODAL: (state, action: {payload: OpenWellSelectionModalPayload}) => action.payload,
-  CLOSE_WELL_SELECTION_MODAL: () => null,
-}, null)
-
 export type RootState = {|
   selectedWells: SelectedWellsState,
-  wellSelectionModal: WellSelectionModalState,
 |}
 
 const rootReducer = combineReducers({
   selectedWells,
-  wellSelectionModal,
 })
 
 export default rootReducer
